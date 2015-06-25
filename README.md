@@ -289,5 +289,77 @@ and the instructions to setup the remote desktop you should cruise right through
   ```
   * You should hear 2 beeps when the configuration server is initialized and 2 more when the platform is ready to accept commands
   * The launch is time staged so it takes ~15 seconds to complete
+  * Close the SSH connection
+  ```
+  exit
+  ```
+3. **Make sure you can visualize everything**
+   * Close all the terminals and open a new one
+   * Start robot visualization
+   ```
+   cd ~/segway_remote_ws
+   sws
+   roslaunch segway_viz view_robot.launch
+   ```
+   * You should see your robot model come up and be able to see all the different sensors
+4. **Check out the reconfiguration GUI**
+   * Open a new tab <Ctrl>+<Shft>+<t>
+   ```
+   sws
+   rosrun rqt_reconfigure rqt_reconfigure
+   ```
+   * Expand Segway and mouse over the options to get a description
+     * **Make sure you read the manual and understand what parameters do before changing them**
+5. **See all the data**
+  * Get familiar with RQT http://wiki.ros.org/rqt
+  * Open a new tab <Ctrl>+<Shft>+<t>
+  ```
+  sws
+  rqt
+  ```
+  * If you are not familiar with RQT just click <Plugins> in the menu and select a few useful ones
+    * Robots->Segway_RMP_V3
+    * Visualization->RVIZ
+    * Topics->Topic Monitor
+    * Configuration->Dynamic Reconfigure
+    
+  * Experiment, play around with it etc.
 
-
+5. **Drive the system around**
+  * If the platform is equipped with a wireless joystick you should be able to just drive it around
+  * If you want to control it from the remote desktop
+    * Get a compatible controller
+      * XBOX360 style that have been tested: Logitech F310, Logitech F710 (only in XINPUT mode)
+      * Joystick type that have been tested: Logitech Extreme 3D
+    * Make sure that the 50.segway_config.sh file has the right controller configuration
+      * Default is xbox360
+      * change **SEGWAY_JOY_MAPPING** to extreme3D if you want to use the Extreme3D
+      * Create your own configuration (see example yaml files on the robot PC)
+        * ~/segway_ws/src/segway_robot/segway_bringup/launch/teleop/config
+    * Connect the controller and make sure determine which device it is
+      * For VM it is generally /dev/input/js2
+      * For native machines it is generally /dev/input/js0
+    * open a new tab <Ctrl>+<Shft>+<t>
+    ```
+    sws
+    roslaunch segway_remote_teleop segway_remote_teleop.launch input:=/dev/input/js0
+    ```
+    
+  * You should be able to drive the platform around
+  * See the controller mapping in the manuals or in the configuration files
+  * Basic xbox360 style operation
+    * B button is Tractor Mode
+    * X button is Standby Mode
+    * A button is Balance Mode (only for the 220)
+    * Left Trigger is deadman (must squeeze to command motion)
+    * Right Trigger is manual override for assisted teleop
+    * Left DPAD makes a catcall
+    * Left joystick forward/back +/-x linear velocity
+    * Left joystick left/right +/-y linear velocity (obviously only for OMNI)
+    * Right joystick left/right +/-z angular
+    * LB Decel to disable emergency response
+    * RB Decel to zero speed emergency response
+    * Start button Powerdown request
+    
+#You are now ready to play with the navigation demos, congratulations!
+## One warning for the navigation demos. We assume that you understand that since we were not responsible for integrating your system we cannot gaurantee anything will work. If you purchased an integrated package from SI, you're inluck we already tested your system and its good to go. You must have been reading this for fun.
