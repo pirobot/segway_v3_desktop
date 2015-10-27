@@ -65,6 +65,21 @@ From a linux machine connected to the internet run the following commands
   ``` 
   * Add the following lines to the end of the file each provides a few shortcuts:
   ```
+  function save_map()
+  {
+    if [ ! -z "$1" ]
+    then
+      local dest='/home/sibot/segway_ws/src/segway_v3/segway_navigation/segway_navigation_apps/maps/'$1
+    else
+      local dest='/home/sibot/segway_ws/src/segway_v3/segway_navigation/segway_navigation_apps/maps/mymap'
+    fi
+
+    local cmd_ssh="
+    source '/home/sibot/.bashrc';
+    rosrun map_server map_saver -f $dest"
+
+    ssh sibot@SIBOT1 "$cmd_ssh"
+  }
   source /opt/ros/indigo/setup.bash
   alias sws='source ./devel/setup.bash'
   alias clean_backups='find ./ -name '*~' | xargs rm'
