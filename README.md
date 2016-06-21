@@ -114,7 +114,7 @@ From a linux machine connected to the internet run the following commands
 2. **Install required ROS third party packages for segway_v3_robot**
   * These are the packages that RMP V3 depends on might as well have them for the remote machine
   ```
-  sudo apt-get install ros-indigo-navigation ros-indigo-gmapping ros-indigo-robot-localization ros-indigo-yocs-cmd-vel-mux ros-indigo-joy ros-indigo-urg-node ros-indigo-lms1xx ros-indigo-pointgrey-camera-driver ros-indigo-cmake-modules daemontools openssh-server libpcap0.8-dev
+  sudo apt-get install ros-indigo-navigation ros-indigo-gmapping ros-indigo-robot-localization ros-indigo-yocs-cmd-vel-mux ros-indigo-joy ros-indigo-urg-node ros-indigo-lms1xx ros-indigo-pointgrey-camera-driver ros-indigo-cmake-modules daemontools openssh-server libpcap0.8-dev ros-indigo-imu-tools
   ```
 4. **Create a workspace in your home directory and get sources**
   * This is what you need if you want to visualize
