@@ -6,12 +6,23 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Grid1
+        - /RobotModel1/Links1
+        - /RobotModel1/Links1/sibot_case_link1
         - /TF1/Frames1
+        - /Sensing1/LaserScan1
+        - /Sensing1/Imu1
+        - /Sensing1/Imu1/Axes properties1
+        - /Navigation1
         - /Navigation1/Exploration1
         - /Navigation1/Static Map1
         - /Navigation1/Global Costmap1
+        - /Navigation1/Local Costmap1
+        - /Navigation1/Global Plan1
+        - /Navigation1/Local Plan1
+        - /Goal Pose1
       Splitter Ratio: 0.595238
-    Tree Height: 715
+    Tree Height: 815
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -37,7 +48,7 @@ Visualization Manager:
     - Alpha: 0.5
       Cell Size: 1
       Class: rviz/Grid
-      Color: 160; 160; 164
+      Color: 0; 0; 0
       Enabled: true
       Line Style:
         Line Width: 0.03
@@ -49,7 +60,7 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 30
+      Plane Cell Count: 100
       Reference Frame: <Fixed Frame>
       Value: true
     - Alpha: 1
@@ -72,15 +83,20 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        base_laser_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        front_laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        inertial_collision_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         left_spacer_link:
           Alpha: 1
           Show Axes: false
@@ -121,6 +137,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        sibot_case_link:
+          Alpha: 0.9
+          Show Axes: false
+          Show Trail: false
+          Value: true
         ui_box_link:
           Alpha: 1
           Show Axes: false
@@ -131,10 +152,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        um7_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: segway
@@ -193,6 +210,7 @@ Visualization Manager:
           Size (m): 0.03
           Style: Flat Squares
           Topic: /segway/filtered_scan
+          Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
@@ -222,6 +240,7 @@ Visualization Manager:
           Size (m): 0.01
           Style: Flat Squares
           Topic: /velodyne_points
+          Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
@@ -232,7 +251,7 @@ Visualization Manager:
             Derotate acceleration: false
             Enable acceleration: true
           Axes properties:
-            Axes scale: 1
+            Axes scale: 0.5
             Enable axes: true
           Box properties:
             Box alpha: 1
@@ -242,10 +261,11 @@ Visualization Manager:
             y_scale: 0.4
             z_scale: 0.4
           Class: rviz_imu_plugin/Imu
-          Enabled: true
+          Enabled: false
           Name: Imu
           Topic: /segway/feedback/um7_imu
-          Value: true
+          Unreliable: false
+          Value: false
       Enabled: true
       Name: Sensing
     - Class: rviz/Group
@@ -264,35 +284,39 @@ Visualization Manager:
               Class: rviz/Map
               Color Scheme: costmap
               Draw Behind: true
-              Enabled: true
+              Enabled: false
               Name: Exploration Costmap
               Topic: /explore_server/explore_costmap/costmap
-              Value: true
+              Unreliable: false
+              Value: false
           Enabled: true
           Name: Exploration
-        - Alpha: 0.7
+        - Alpha: 0.2
           Class: rviz/Map
           Color Scheme: map
           Draw Behind: true
           Enabled: true
           Name: Static Map
           Topic: /map
+          Unreliable: false
           Value: true
         - Alpha: 0.7
           Class: rviz/Map
-          Color Scheme: costmap
+          Color Scheme: map
           Draw Behind: true
           Enabled: true
           Name: Global Costmap
           Topic: /move_base/global_costmap/costmap
+          Unreliable: false
           Value: true
-        - Alpha: 0.7
+        - Alpha: 1
           Class: rviz/Map
-          Color Scheme: costmap
-          Draw Behind: false
+          Color Scheme: map
+          Draw Behind: true
           Enabled: true
           Name: Local Costmap
           Topic: /move_base/local_costmap/costmap
+          Unreliable: false
           Value: true
         - Alpha: 1
           Buffer Length: 1
@@ -306,10 +330,11 @@ Visualization Manager:
             X: 0
             Y: 0
             Z: 0
-          Topic: /move_base/NavfnROS/plan
+          Topic: /move_base/TrajectoryPlannerROS/global_plan
+          Unreliable: false
           Value: true
         - Alpha: 1
-          Buffer Length: 1
+          Buffer Length: 5
           Class: rviz/Path
           Color: 255; 0; 0
           Enabled: true
@@ -320,23 +345,39 @@ Visualization Manager:
             X: 0
             Y: 0
             Z: 0
-          Topic: /move_base/DWAPlannerROS/local_plan
+          Topic: /move_base/TrajectoryPlannerROS/local_plan
+          Unreliable: false
           Value: true
-      Enabled: false
+      Enabled: true
       Name: Navigation
     - Class: rviz/InteractiveMarkers
       Enable Transparency: true
-      Enabled: true
+      Enabled: false
       Name: InteractiveMarkers
       Show Axes: false
       Show Descriptions: true
       Show Visual Aids: false
       Update Topic: /segway/segway_marker_ctrl/update
+      Value: false
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.1
+      Class: rviz/Pose
+      Color: 85; 170; 0
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.2
+      Name: Goal Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05
+      Shape: Arrow
+      Topic: /move_base_simple/goal
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
-    Fixed Frame: odom
+    Background Color: 70; 70; 70
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -354,31 +395,31 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 11.3098
+      Class: rviz/XYOrbit
+      Distance: 25.348
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.86686
-        Y: 0.213523
-        Z: -1.5369
+        X: 0.795452
+        Y: 3.13868
+        Z: -2.78549e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.5698
+      Pitch: 0.930399
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 6.18178
+      Value: XYOrbit (rviz)
+      Yaw: 2.2254
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 928
+  Height: 1028
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000018c0000035afc0200000005fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000280000035a000000dd00ffffff000000010000010f000002ddfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000043000002dd000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004a00000003efc0100000002fb0000000800540069006d00650000000000000004a0000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000005ad0000035a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000018c000003befc0200000005fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730100000028000003be000000dd00ffffff000000010000010f000003befc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000028000003be000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004a00000003efc0100000002fb0000000800540069006d00650000000000000004a0000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000005ad000003be00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -388,5 +429,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1855
-  X: 55
+  X: 45
   Y: 14

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot_name" default="$(optenv SEGWAY_PLATFORM_NAME RMP_OMNI)"/>
+  <arg name="robot_name" default="$(optenv SEGWAY_PLATFORM_NAME RMP_210)"/>
 
   <!-- Standalone launcher to visualize the robot model. -->
   <include file="$(find segway_description)/launch/description.launch">
